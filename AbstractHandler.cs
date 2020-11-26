@@ -9,7 +9,7 @@ namespace Lab6
     {
         private string _way;
         private string _filename;
-        
+        private string _way2;
 
         public AbstractHandler(){}
 
@@ -18,20 +18,30 @@ namespace Lab6
             this._way = way;
             this._filename = filename;
         }
-
+        public void constructor(string way, string filename, string way2)
+        {
+            this._way = way;
+            this._filename = filename;
+            this._way2 = way2;
+        }
         public void Open()
         {
-            File.Open(_way + _filename, FileMode.Open);
+            File.Open(_way + "/" + _filename, FileMode.Open);
         }
 
         public void Create()
         {
-            File.Create(_way + _filename);
+            File.Create(_way + "/" + _filename);
         }
 
-        public void Edit()
+        public void Delete()
         {
-            
+            File.Delete(_way + "/" + _filename);
+        }
+
+        public void Move()
+        {
+            File.Move(_way + "/" + _filename, _way2 + _filename);
         }
 
     }
