@@ -26,22 +26,36 @@ namespace Lab6
         }
         public void Open()
         {
-            File.Open(_way + "/" + _filename, FileMode.Open);
+            using (FileStream fs = File.Open($"{_way}\\{_filename}.docx", FileMode.Open))
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                Console.WriteLine($"Name: {fs.Name}, Type: {Path.GetExtension(fs.Name)}");
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    Console.WriteLine(temp.GetString(b));
+                }
+
+            }
         }
 
         public void Create()
         {
-            File.Create(_way + "/" + _filename);
+            using (FileStream fs = File.Create($"{_way}\\{_filename}.doc"))
+            {
+                byte[] info = new UTF8Encoding(true).GetBytes("text");
+                fs.Write(info, 0, info.Length);
+            }
         }
 
         public void Delete()
         {
-            File.Delete(_way + "/" + _filename);
+            File.Delete($"{_way}\\{_filename}.doc");
         }
 
         public void Move()
         {
-            File.Move(_way + "/" + _filename, _way2 + _filename);
+            File.Move($"{_way}\\{_filename}.doc", _way2);
         }
 
     }
